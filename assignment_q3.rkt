@@ -27,7 +27,8 @@
 ;A
 (define (sortTree binaryTree)
  (begin(cond [(not (empty?(left_child binaryTree))) (sortTree (left_child  binaryTree))])
-   (printf "~a " (value  binaryTree));
+
+       (printf "~a " (value  binaryTree));
    (cond [(not (empty?(right_child  binaryTree))) (sortTree (right_child  binaryTree))])))
 
 ;B
@@ -75,6 +76,7 @@
   (cond [(empty? binaryTree) (list '() item '())]
         [(equal? item (value binaryTree)) binaryTree]
         [(left item (value binaryTree))
+         
          (list (higher_order_addItem item (left_child binaryTree) left) (value binaryTree) (right_child binaryTree))]
         [else (list (left_child binaryTree) (value binaryTree) (higher_order_addItem item (right_child binaryTree) left))]))
 

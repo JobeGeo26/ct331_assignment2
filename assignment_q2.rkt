@@ -9,12 +9,12 @@
 
 ;A
 (define (ins_beg element elist)
-  (display "ins_beg!\n")
+  (display "ins_beg\n")
   (cons element elist))
 
 ;B
 (define (ins_end element elist)
-  (display "ins_end!\n")
+  (display "ins_end\n")
   (append elist (list element)))
 
 ;C
@@ -23,9 +23,11 @@
   (define x 0)
   (define (count elist)
       (if  (empty? elist)
+           
            (display "Elements count: ")
            (begin
              (set! x (+ x 1))
+             
              (count (cdr elist)))))
   (count list)
    (display x))
@@ -36,12 +38,14 @@
   (define y 0)
   (define (count elist)
   (if (empty? elist)
+      
       (display "Instances count: ")
       (begin
         (if (eq? element (car elist))
             (set! y (+ y 1))
             (set! y y))
         (count (cdr elist)))))
+  
   (count list)
   (display y))
 
@@ -50,11 +54,13 @@
   (display "count_instances_tr\n")
   (define (count elist total)
     (if (empty? elist)
+
         (begin
         (display "Instances count: ")
         (display total))
         (begin
           (if (eq? element(car elist))
+              
             (count (cdr elist) (+ total 1))
             (count (cdr elist) total)))
         ))
@@ -65,19 +71,22 @@
   (display "count_instances_deep\n")
   (define x 0)
   (define (count elist)
-    (if (empty? elist)
+
+    (if (empty? elist) 
         (void)
         (begin
           (if (eq? element (car elist))
               (begin
                 (set! x (+ x 1))
                 (count (cdr elist)))
+
               (begin
                 
                 (if (number? (car elist))
                     (count (cdr elist))
                     
                     (begin
+
                       (count (car elist))
                       (count (cdr elist)))))))))
   (count list)

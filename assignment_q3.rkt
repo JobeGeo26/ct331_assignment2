@@ -26,20 +26,20 @@
   (cadr binaryTree))
 ;A
 (define (sortTree binaryTree)
- (begin(cond [(not (empty?(left_child binaryTree))) (sortTree (left_child  binaryTree))])
+  (begin(cond [(not (empty?(left_child binaryTree))) (sortTree (left_child  binaryTree))])
 
-       (printf "~a " (value  binaryTree));
-   (cond [(not (empty?(right_child  binaryTree))) (sortTree (right_child  binaryTree))])))
+        (printf "~a " (value  binaryTree));
+        (cond [(not (empty?(right_child  binaryTree))) (sortTree (right_child  binaryTree))])))
 
 ;B
 (define (present element binaryTree)
-(cond
-  [(empty? binaryTree) #f]
-  [(equal? element (value binaryTree)) #t]
-  [(< element (value binaryTree)) (present element (left_child binaryTree))]
+  (cond
+    [(empty? binaryTree) #f]
+    [(equal? element (value binaryTree)) #t]
+    [(< element (value binaryTree)) (present element (left_child binaryTree))]
   
-  [else (present element (right_child binaryTree))]
-  )
+    [else (present element (right_child binaryTree))]
+    )
   )
 
 ;C
@@ -55,10 +55,6 @@
 
       (add_list (cdr elist) (addItem (car elist) binaryTree))))
 
-(define (higher_order_add_list elist binaryTree left)
-  (if (empty? elist) binaryTree
-
-      (higher_order_add_list (cdr elist) (higher_order_addItem (car elist) binaryTree left) left)))
 
 
 
@@ -66,8 +62,7 @@
 (define (tree_sort elist)
   (sortTree (add_list elist '())))
 
-(define (higher_order_tree_sort elist orderFunction)
-  (sortTree (higher_order_add_list elist '() orderFunction)))
+
 
 
 
@@ -76,32 +71,42 @@
   (cond [(empty? binaryTree) (list '() item '())]
         [(equal? item (value binaryTree)) binaryTree]
         [(left item (value binaryTree))
-         
          (list (higher_order_addItem item (left_child binaryTree) left) (value binaryTree) (right_child binaryTree))]
         [else (list (left_child binaryTree) (value binaryTree) (higher_order_addItem item (right_child binaryTree) left))]))
+
+
+(define (higher_order_add_list elist binaryTree left)
+  (if (empty? elist) binaryTree
+      (higher_order_add_list (cdr elist) (higher_order_addItem (car elist) binaryTree left) left)))
+
+(define (higher_order_tree_sort elist orderFunction)
+  (sortTree (higher_order_add_list elist '() orderFunction)))
+
+
+
 
 
 
 (define (ascending_last_digit x y)
   (< (remainder x 10) (remainder y 10)))
 
-(display "display_sorted:\n")
+(display "Display sorted contents:\n")
 (sortTree tree)
 
-(display "\npresent_in_tree:\n")
+(display "\nPresent in tree:\n")
 (present 9 tree)
 (present 222 tree)
 
-(display "add item\n")
+(display "Add item\n")
 (addItem 16 tree)
 
-(display "add_list:\n")
+(display "Add list:\n")
 (add_list '(5 60 88 101 68) tree)
 
-(display "tree_sort:\n")
+(display "Tree sort:\n")
 (tree_sort to_Sort)
 
-(display "higher_order_tree_sort:\n")
+(display "\nHigher order tree sort:\n")
 (display "Ascending:\n")
 (higher_order_tree_sort to_Sort <)
 (display "\nDescending:\n")

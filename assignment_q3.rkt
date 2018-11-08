@@ -6,12 +6,13 @@
 (provide value)
 (provide sortTree)
 (provide present)
-(provide addItem)
-(provide add_list)
-(provide higher_order_add_list)
+(provide insert_item)
+(provide insert_list)
 (provide tree_sort)
+(provide higher_order_insert_item)
+(provide higher_order_insert_list)
 (provide higher_order_tree_sort)
-(provide higher_order_addItem)
+
 
 (define tree '(((() 5 ()) 9 (() 12 ())) 23 ((() 27 ()) 33 (() 49 ()))))
 (define to_Sort '(3 9 122 57 7 16 55 30))
@@ -43,73 +44,65 @@
   )
 
 ;C
-(define (addItem element binaryTree)
+(define (insert_item element binaryTree)
   
-  (higher_order_addItem element binaryTree <)
+  (higher_order_insert_item element binaryTree <)
   )
 
 
 ;D
-(define (add_list elist binaryTree)
+(define (insert_list elist binaryTree)
   (if (empty? elist) binaryTree
 
-      (add_list (cdr elist) (addItem (car elist) binaryTree))))
+      (insert_list (cdr elist) (insert_item (car elist) binaryTree))))
 
 
 
 
 ;E
 (define (tree_sort elist)
-  (sortTree (add_list elist '())))
-
-
-
-
+  (sortTree (insert_list elist '())))
 
 ;F
-(define (higher_order_addItem item binaryTree left)
+(define (higher_order_insert_item item binaryTree left)
   (cond [(empty? binaryTree) (list '() item '())]
         [(equal? item (value binaryTree)) binaryTree]
         [(left item (value binaryTree))
-         (list (higher_order_addItem item (left_child binaryTree) left) (value binaryTree) (right_child binaryTree))]
-        [else (list (left_child binaryTree) (value binaryTree) (higher_order_addItem item (right_child binaryTree) left))]))
+         (list (higher_order_insert_item item (left_child binaryTree) left) (value binaryTree) (right_child binaryTree))]
+        [else (list (left_child binaryTree) (value binaryTree) (higher_order_insert_item item (right_child binaryTree) left))]))
 
 
-(define (higher_order_add_list elist binaryTree left)
+(define (higher_order_insert_list elist binaryTree left)
   (if (empty? elist) binaryTree
-      (higher_order_add_list (cdr elist) (higher_order_addItem (car elist) binaryTree left) left)))
+      (higher_order_insert_list (cdr elist) (higher_order_insert_item (car elist) binaryTree left) left)))
 
 (define (higher_order_tree_sort elist orderFunction)
-  (sortTree (higher_order_add_list elist '() orderFunction)))
-
-
-
-
+  (sortTree (higher_order_insert_list elist '() orderFunction)))
 
 
 (define (ascending_last_digit x y)
   (< (remainder x 10) (remainder y 10)))
 
-(display "Display sorted contents:\n")
+(display "Part A:Display sorted contents:\n")
 (sortTree tree)
 
-(display "\nPresent in tree:\n")
+(display "\nPart B:Present in tree:\n")
 (present 9 tree)
 (present 222 tree)
 
-(display "Add item\n")
-(addItem 16 tree)
+(display "Part C:Insert item\n")
+(insert_item 16 tree)
 
-(display "Add list:\n")
-(add_list '(5 60 88 101 68) tree)
+(display "Part D:Insert list to Tree:\n")
+(insert_list '(5 60 88 101 68) tree)
 
-(display "Tree sort:\n")
+(display "Part E:Tree sort alogrithm:\n")
 (tree_sort to_Sort)
 
-(display "\nHigher order tree sort:\n")
-(display "Ascending:\n")
+(display "\nPart F:Higher order tree sort:\n")
+(display "Ascending order:\n")
 (higher_order_tree_sort to_Sort <)
-(display "\nDescending:\n")
+(display "\nDescending order:\n")
 (higher_order_tree_sort to_Sort >)
-(display "\nAscending based on final digit:\n")
+(display "\nAscending order based on final digit:\n")
 (higher_order_tree_sort to_Sort ascending_last_digit)

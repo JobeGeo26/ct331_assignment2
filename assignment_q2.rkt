@@ -9,17 +9,17 @@
 
 ;A
 (define (ins_beg element elist)
-  (display "ins_beg\n")
+  (display "ins beg:\n")
   (cons element elist))
 
 ;B
 (define (ins_end element elist)
-  (display "ins_end\n")
+  (display "\nins end:\n")
   (append elist (list element)))
 
 ;C
 (define (cout_top_level list)
-  (display "cout_top_level\n")
+  (display "\ncout top level\n")
   (define x 0)
   (define (count elist)
       (if  (empty? elist)
@@ -34,7 +34,7 @@
 
 ;D
 (define (count_instances element list)
-  (display "count_instances\n")
+  (display "\ncount instances\n")
   (define y 0)
   (define (count elist)
   (if (empty? elist)
@@ -51,7 +51,7 @@
 
 ;E
 (define (count_instances_tr element list)
-  (display "count_instances_tr\n")
+  (display "\ncount instances tr\n")
   (define (count elist total)
     (if (empty? elist)
 
@@ -68,7 +68,7 @@
 
 ;F
 (define (count_instances_deep element list)
-  (display "count_instances_deep\n")
+  (display "\ncount instances deep\n")
   (define x 0)
   (define (count elist)
 
